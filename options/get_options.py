@@ -7,8 +7,8 @@ def get_options():
     # subparsers.required = True
 
     # write parse algorithm
-    init_parser = subparsers.add_parser("rebase")
-    init_parser.add_argument("-i", "--interactive", action="store_true")
+    rebase_parser = subparsers.add_parser("rebase")
+    rebase_parser.add_argument("-i", "--interactive", action="store_true")
 
     args = parser.parse_args()
     return args
