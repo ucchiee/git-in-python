@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from options import get_options
-from pygit import main
+from gip import main
 
 
 if __name__ == "__main__":
