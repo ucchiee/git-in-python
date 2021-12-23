@@ -6,19 +6,19 @@ from hashlib import sha1
 from util import detect_dot_git
 
 
-def cmd_hash_object(args: Namespace) -> None:
+def cmd_hash_object(args: Namespace) -> str:
     path: str = os.path.abspath(args.path)
 
     # check path
     if not os.path.exists(path):
         print(f"{path} does not exists")
-        return
+        return ""
 
     # check repo
     dot_git_dir = detect_dot_git(path)
     if not dot_git_dir:
         print("there is not a git repository")
-        return
+        return ""
 
     # hash object
     with open(path, mode="r") as f:
@@ -35,6 +35,9 @@ def cmd_hash_object(args: Namespace) -> None:
     obj_path: str = os.path.join(obj_dir, filename)
     with open(obj_path, mode="wb") as f:  # type: ignore
         f.write(content_zlib)  # type: ignore
+
+    print(sha1_hash)
+    return sha1_hash
 
 
 def main():
