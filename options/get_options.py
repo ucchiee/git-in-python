@@ -10,6 +10,9 @@ def get_parser() -> argparse.ArgumentParser:
     # init
     init_parser = subparsers.add_parser("init")
     init_parser.add_argument("directory", type=str, default=".", nargs="?")
+    # hash-object
+    init_parser = subparsers.add_parser("hash-object")
+    init_parser.add_argument("path", type=str)
     # rebase
     rebase_parser = subparsers.add_parser("rebase")
     rebase_parser.add_argument("-i", "--interactive", action="store_true")
