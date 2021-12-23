@@ -15,7 +15,7 @@ class TestGipInit(unittest.TestCase):
     def tearDown(self) -> None:
         shutil.rmtree(dirname)
 
-    def util_test_git_dir(self, dot_git_dir) -> None:
+    def util_test_git_dir(self, dot_git_dir: str) -> None:
         objects_dir: str = os.path.join(dot_git_dir, "objects")
         heads_dir: str = os.path.join(dot_git_dir, "heads")
         head_path: str = os.path.join(dot_git_dir, "HEAD")
