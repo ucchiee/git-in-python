@@ -31,10 +31,11 @@ class TestGipInit(unittest.TestCase):
     def test_with_dir(self):
         os.chdir(dirname)
         parser = get_parser()
-        args = parser.parse_args(["init", "test_dir"])
+        test_dir = os.path.join(dirname, "test_dir")
+        args = parser.parse_args(["init", test_dir])
         cmd_init(args)
 
-        dot_git_dir: str = os.path.join(dirname, "test_dir", ".git")
+        dot_git_dir: str = os.path.join(test_dir, ".git")
         self.util_test_git_dir(dot_git_dir)
 
     def test_without_dir(self):
