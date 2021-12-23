@@ -1,11 +1,14 @@
 import os
 import zlib
+from argparse import Namespace
 from hashlib import sha1
 
 from util import detect_dot_git
 
 
-def cmd_hash_object(path: str) -> None:
+def cmd_hash_object(args: Namespace) -> None:
+    path: str = os.path.abspath(args.path)
+
     # check path
     if not os.path.exists(path):
         print(f"{path} does not exists")
