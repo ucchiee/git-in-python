@@ -6,13 +6,16 @@ def get_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(title="Commands", dest="command")
     # subparsers.required = True
 
-    # write parse algorithm
+    # write parse algorithm here
     # init
     init_parser = subparsers.add_parser("init")
     init_parser.add_argument("directory", type=str, default=".", nargs="?")
     # hash-object
     hash_parser = subparsers.add_parser("hash-object")
     hash_parser.add_argument("path", type=str)
+    # cat-file
+    cat_parser = subparsers.add_parser("cat-file")
+    cat_parser.add_argument("hash_value", type=str)
     # rebase
     rebase_parser = subparsers.add_parser("rebase")
     rebase_parser.add_argument("-i", "--interactive", action="store_true")
