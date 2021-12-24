@@ -1,7 +1,7 @@
 import os
 import shutil
-import unittest
 import subprocess
+import unittest
 
 from commands import cmd_hash_object, cmd_init
 from options import get_parser
