@@ -22,29 +22,24 @@ class TestGipHashObject(unittest.TestCase):
         dot_git_dir = os.path.join(dirname, ".git")
         shutil.rmtree(dot_git_dir)
 
+    def check_hash(self, filename: str) -> None:
+        parser = get_parser()
+        args = parser.parse_args(["hash-object", filename])
+        sha1_hash = cmd_hash_object(args)
+        proc = subprocess.run(f"git hash-object {filename}", shell=True, text=True, stdout=subprocess.PIPE)
+        self.assertEqual(sha1_hash, proc.stdout.strip())
+
     def test_hash_object_text(self):
         os.chdir(dirname)
-        parser = get_parser()
-        args = parser.parse_args(["hash-object", "test.c"])
-        sha1_hash = cmd_hash_object(args)
-        proc = subprocess.run("git hash-object test.c", shell=True, text=True, stdout=subprocess.PIPE)
-        self.assertEqual(sha1_hash, proc.stdout.strip())
+        self.check_hash("test.c")
 
     def test_hash_object_multibytes_text(self):
         os.chdir(dirname)
-        parser = get_parser()
-        args = parser.parse_args(["hash-object", "japanese.txt"])
-        sha1_hash = cmd_hash_object(args)
-        proc = subprocess.run("git hash-object japanese.txt", shell=True, text=True, stdout=subprocess.PIPE)
-        self.assertEqual(sha1_hash, proc.stdout.strip())
+        self.check_hash("japanese.txt")
 
     def test_hash_object_binary(self):
         os.chdir(dirname)
-        parser = get_parser()
-        args = parser.parse_args(["hash-object", "a.out"])
-        sha1_hash = cmd_hash_object(args)
-        proc = subprocess.run("git hash-object a.out", shell=True, text=True, stdout=subprocess.PIPE)
-        self.assertEqual(sha1_hash, proc.stdout.strip())
+        self.check_hash("a.out")
 
 
 if __name__ == "__main__":
