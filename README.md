@@ -13,7 +13,7 @@ python -m unittest discover tests
 Commands to implement:
 
 - [x] init
-- [ ] hash-object
+- [x] hash-object
 - [ ] cat-file
 - [ ] add
 - [ ] commit
