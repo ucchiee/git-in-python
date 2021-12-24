@@ -3,7 +3,7 @@ from argparse import Namespace
 
 
 def cmd_init(args: Namespace) -> None:
-    dir = os.path.abspath(args.dirname)
+    dir = os.path.abspath(args.directory)
     dot_git_dir = os.path.join(dir, ".git")
 
     if os.path.exists(dot_git_dir):
