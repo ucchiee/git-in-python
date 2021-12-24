@@ -21,12 +21,12 @@ def cmd_hash_object(args: Namespace) -> str:
         return ""
 
     # hash object
-    with open(path, mode="r") as f:
-        content: str = f.read()
+    with open(path, mode="rb") as f:
+        content: bytes = f.read()
     header: str = f"blob {len(content)}\0"
-    store: str = header + content
-    content_zlib = zlib.compress(store.encode())
-    sha1_hash: str = sha1(store.encode()).hexdigest()
+    store: bytes = header.encode() + content
+    content_zlib = zlib.compress(store)
+    sha1_hash: str = sha1(store).hexdigest()
 
     # write object
     dirname, filename = sha1_hash[:2], sha1_hash[2:]
