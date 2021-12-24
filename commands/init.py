@@ -3,7 +3,8 @@ from argparse import Namespace
 
 
 def cmd_init(args: Namespace) -> None:
-    dot_git_dir = os.path.join(args.directory, ".git")
+    dir = os.path.abspath(args.directory)
+    dot_git_dir = os.path.join(dir, ".git")
 
     if os.path.exists(dot_git_dir):
         print("Reinitialized existing ", end="")
