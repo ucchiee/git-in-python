@@ -2,7 +2,7 @@ import os
 import glob
 import zlib
 
-from util import detect_dot_git
+from util.detect_dot_git import detect_dot_git
 
 
 def cat_file(hash_value: str, print_error: bool = False) -> str:
