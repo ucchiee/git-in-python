@@ -64,9 +64,9 @@ class TestGipCatFile(unittest.TestCase):
         result = self.get_result(hash_value)
         self.assertIsNotNone(result)
 
-        with open(filename, mode="r") as f:
+        with open(filename, mode="rb") as f:
             contents = f.read()
-        self.assertEqual(result, contents)
+        self.assertEqual(result, contents.decode(errors="replace"))
 
     def test_cat_file_shorter_hash(self):
         os.chdir(dirname)
@@ -83,12 +83,10 @@ class TestGipCatFile(unittest.TestCase):
 
     def test_cat_file_too_short_hash(self):
         result = self.get_result("asd")
-        print(f"result of adsfadsf: {result}")
         self.assertEqual(result, "")
 
     def test_cat_file_invalid_hash(self):
         result = self.get_result("asdfasdf")
-        print(f"result of adsfadsf: {result}")
         self.assertEqual(result, "")
 
 
