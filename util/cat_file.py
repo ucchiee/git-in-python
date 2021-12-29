@@ -39,7 +39,7 @@ def cat_file(hash_value: str, print_error: bool = False) -> str:
             break
     contents = contents[i + 1 :]
 
-    result = contents.decode()
+    result = contents.decode(errors="replace")
     return result
 
 
