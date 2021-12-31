@@ -6,8 +6,8 @@ from classes import IndexEntry
 from util.detect_dot_git import detect_dot_git
 
 
-def read_index(top_dir: str, print_error: bool = False) -> list[IndexEntry]:
-    dot_git_dir: str = detect_dot_git(top_dir)
+def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]:
+    dot_git_dir: str = detect_dot_git(path_in_repo)
     if not dot_git_dir:
         if print_error:
             print("Not in a git repository")
