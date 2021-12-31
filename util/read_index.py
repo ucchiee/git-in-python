@@ -29,7 +29,6 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
         return []
 
     signature, version, num_entries = struct.unpack("!4sLL", index_data)
-    index_data = index_data[12:-20]
     if signature != b"DIRC":
         if print_error:
             print("invalid signature, must be DIRC")
@@ -39,8 +38,22 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
             print("invalid version, must be 2")
         return []
 
-    raise NotImplementedError
-    return []
+    index_data = index_data[12:-20]
+    list_entries = []
+    while len(index_data) > 62:
+        # parse each fields
+        list_fields = struct.unpack("!LLLLLLLLLL20sH", index_data[:62])
+        index_data = index_data[:62]
+
+        # path is null terminated
+        end_of_path = index_data.index(b"0x00")
+        path = index_data[:end_of_path].decode()
+
+        entry = IndexEntry(*(list_fields + (path,)))
+        list_entries.append(entry)
+        index_data = index_data[1:]  # delete null
+
+    return list_entries
 
 
 if __name__ == "__main__":
