@@ -2,7 +2,7 @@ from typing import NamedTuple
 
 
 class IndexEntry(NamedTuple):
-    ctme_s: int
+    ctime_s: int
     ctime_n: int
     mtime_s: int
     mtime_n: int
