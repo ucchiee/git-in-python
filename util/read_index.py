@@ -46,7 +46,7 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
         index_data = index_data[:62]
 
         # path is null terminated
-        end_of_path = index_data.index(b"0x00")
+        end_of_path = index_data.index(b"\x00")
         path = index_data[:end_of_path].decode()
 
         entry = IndexEntry(*(list_fields + (path,)))
