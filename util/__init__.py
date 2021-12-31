@@ -1,7 +1,9 @@
 from util.cat_file import cat_file
 from util.detect_dot_git import detect_dot_git
+from util.read_index import read_index
 
 __all__ = [
-    "detect_dot_git",
     "cat_file",
+    "detect_dot_git",
+    "read_index",
 ]
