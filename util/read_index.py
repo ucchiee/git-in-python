@@ -51,7 +51,12 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
 
         entry = IndexEntry(*(list_fields + (path,)))
         list_entries.append(entry)
-        index_data = index_data[1:]  # delete null
+
+        # delete null bytes
+        for i, data in enumerate(index_data):
+            if data != b"0x00":
+                break
+        index_data = index_data[i:]
 
     return list_entries
 
