@@ -1,9 +1,7 @@
 import os
-import zlib
 from argparse import Namespace
-from hashlib import sha1
 
-from util import detect_dot_git
+from util import detect_dot_git, hash_object
 
 
 def cmd_hash_object(args: Namespace) -> str:
@@ -20,22 +18,7 @@ def cmd_hash_object(args: Namespace) -> str:
         print("there is not a git repository")
         return ""
 
-    # hash object
-    with open(path, mode="rb") as f:
-        content: bytes = f.read()
-    header: str = f"blob {len(content)}\0"
-    store: bytes = header.encode() + content
-    content_zlib = zlib.compress(store)
-    sha1_hash: str = sha1(store).hexdigest()
-
-    # write object
-    dirname, filename = sha1_hash[:2], sha1_hash[2:]
-    obj_dir: str = os.path.join(dot_git_dir, "objects", dirname)
-    os.makedirs(obj_dir, exist_ok=True)
-    obj_path: str = os.path.join(obj_dir, filename)
-    with open(obj_path, mode="wb") as f:  # type: ignore
-        f.write(content_zlib)  # type: ignore
-
+    sha1_hash = hash_object(path)
     print(sha1_hash)
     return sha1_hash
 
