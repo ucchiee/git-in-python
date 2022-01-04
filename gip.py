@@ -1,6 +1,6 @@
 from argparse import Namespace
 
-from commands import cmd_init, cmd_hash_object, cmd_cat_file
+from commands import cmd_add, cmd_cat_file, cmd_hash_object, cmd_init
 from options import get_options
 
 
@@ -12,7 +12,7 @@ def main(args: Namespace) -> None:
     elif args.command == "cat-file":
         cmd_cat_file(args)
     elif args.command == "add":
-        raise NotImplementedError
+        cmd_add(args)
     elif args.command == "commit":
         raise NotImplementedError
 
