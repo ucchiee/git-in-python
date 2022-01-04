@@ -28,8 +28,8 @@ def cmd_commit(args: Namespace) -> str:
     contents = f"tree {tree_hash}\n".encode()
     if parent_hash:
         contents += f"parent {parent_hash}\n".encode()
-    contents += f"author {args.author} {timestamp}\n".encode()
-    contents += f"committer {args.author} {timestamp}\n".encode()
+    contents += f"author {args.author} <{args.email}>{timestamp}\n".encode()
+    contents += f"committer {args.author} <{args.email}>{timestamp}\n".encode()
     contents += "\n".encode()
     contents += f"{args.message}\n".encode()
     commit_hash = write_object("commit", contents, os.getcwd())

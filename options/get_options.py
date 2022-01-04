@@ -27,6 +27,7 @@ def get_parser() -> argparse.ArgumentParser:
     commit_parser = subparsers.add_parser("commit")
     commit_parser.add_argument("--message", "-m", type=str)
     commit_parser.add_argument("--author", type=str, default="anonymous", nargs="?")
+    commit_parser.add_argument("--email", type=str, default="example@example.com", nargs="?")
     # rebase
     rebase_parser = subparsers.add_parser("rebase")
     rebase_parser.add_argument("-i", "--interactive", action="store_true")
