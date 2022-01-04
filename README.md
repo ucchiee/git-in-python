@@ -14,6 +14,6 @@ Commands to implement:
 
 - [x] init
 - [x] hash-object
-- [ ] cat-file
-- [ ] add
+- [x] cat-file
+- [x] add
 - [ ] commit
