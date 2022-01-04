@@ -1,4 +1,4 @@
-from util.write_object import read_object
+from util.objects import read_object
 
 
 def cat_blob(contents: bytes) -> str:

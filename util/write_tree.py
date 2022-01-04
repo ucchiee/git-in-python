@@ -1,7 +1,7 @@
 import os
 
 from util.read_index import read_index
-from util.write_object import write_object
+from util.objects import write_object
 
 
 def write_tree(path_in_repo) -> str:

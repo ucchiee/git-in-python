@@ -1,4 +1,4 @@
-from util.write_object import write_object
+from util.objects import write_object
 
 
 def hash_object(path: str) -> str:
