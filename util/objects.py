@@ -6,7 +6,7 @@ from hashlib import sha1
 from util.detect_dot_git import detect_dot_git
 
 
-def write_object(_type: str, data: bytes, path_in_repo) -> str:
+def write_object(_type: str, data: bytes, path_in_repo: str) -> str:
     valid_obj = set(["blob", "tree", "commit"])
     assert _type in valid_obj, "invalid object type"
 

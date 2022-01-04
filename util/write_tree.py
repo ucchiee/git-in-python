@@ -4,7 +4,7 @@ from util.read_index import read_index
 from util.objects import write_object
 
 
-def write_tree(path_in_repo) -> str:
+def write_tree(path_in_repo: str) -> str:
     t_entry: bytes = b""
     for i_entry in read_index(path_in_repo):
         t_entry += f"{i_entry.mode:o} {i_entry.path}".encode()
