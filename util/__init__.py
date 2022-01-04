@@ -4,7 +4,7 @@ from util.get_path_in_repo import get_path_in_repo
 from util.hash_object import hash_object
 from util.read_index import read_index
 from util.write_index import write_index
-from util.write_object import write_object
+from util.write_object import read_object, write_object
 from util.write_tree import write_tree
 
 __all__ = [
@@ -13,6 +13,7 @@ __all__ = [
     "get_path_in_repo",
     "hash_object",
     "read_index",
+    "read_object",
     "write_index",
     "write_object",
     "write_tree",

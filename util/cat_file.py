@@ -1,45 +1,50 @@
-import os
-import glob
-import zlib
-
-from util.detect_dot_git import detect_dot_git
+from util.write_object import read_object
 
 
-def cat_file(hash_value: str, print_error: bool = False) -> str:
-    # can't specify obj
-    if len(hash_value) < 4:
-        if print_error:
-            print(f"fatal: Not a valid object name {hash_value}")
+def cat_blob(contents: bytes) -> str:
+    return contents.decode(errors="replace")
+
+
+def cat_tree(contents: bytes, path_in_repo: str) -> str:
+
+    # parse each entry
+    result: str = ""
+    while len(contents) > 20:
+        nul_idx = contents.index(b"\x00")
+        mode, path = contents[:nul_idx].decode().split(" ")
+        contents = contents[nul_idx + 1 :]
+        sha1_hash = contents[:20].hex()
+        contents = contents[20:]
+
+        # detect obj type
+        try:
+            _type, _ = read_object(sha1_hash, path_in_repo)
+        except ValueError:
+            print(f"{sha1_hash}")
+            _type = ""
+
+        result = f"{mode} {_type} {sha1_hash}  {path}\n"
+    return result
+
+
+def cat_commit(contents: bytes) -> str:
+    raise NotImplementedError
+
+
+def cat_file(hash_value: str, path_in_repo: str) -> str:
+    try:
+        obj_type, contents = read_object(hash_value, path_in_repo)
+    except ValueError:
         return ""
 
-    dot_git_dir: str = detect_dot_git(os.getcwd())
-    obj_dir: str = os.path.join(dot_git_dir, "objects")
-
-    # object is stored in f".git/objects/{hash_value[:2]}/{hash_value[2:]}"
-    # hash_value doesn't need to be complete as long as we can specify unique obj
-    obj_path = os.path.join(obj_dir, hash_value[:2], f"{hash_value[2:]}*")
-    obj_path_list = glob.glob(obj_path)
-    if len(obj_path_list) == 0:
-        if print_error:
-            print(f"there is no object that starts with {hash_value}")
-        return ""
-    elif len(obj_path_list) > 1:
-        if print_error:
-            print(f"can't specify unique object by {hash_value}")
-        return ""
-
-    with open(obj_path_list[0], mode="rb") as f:
-        contents = f.read()
-    contents = zlib.decompress(contents)
-
-    # remove prefix of blob
-    # TODO: need check other object type
-    for i, byte in enumerate(contents):
-        if byte == 0:
-            break
-    contents = contents[i + 1 :]
-
-    result = contents.decode(errors="replace")
+    if obj_type == "blob":
+        result = cat_blob(contents)
+    elif obj_type == "tree":
+        result = cat_tree(contents, path_in_repo)
+    elif obj_type == "commit":
+        result = cat_commit(contents)
+    else:
+        assert False, "Invalid object type"
     return result
 
 
