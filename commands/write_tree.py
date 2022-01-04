@@ -5,4 +5,6 @@ from util import write_tree
 
 
 def cmd_write_tree(args: Namespace) -> str:
-    return write_tree(os.getcwd())
+    hash = write_tree(os.getcwd())
+    print(hash)
+    return hash
