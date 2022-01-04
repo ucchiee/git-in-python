@@ -43,7 +43,8 @@ def read_object(hash_value: str, path_in_repo: str) -> tuple[str, bytes]:
         contents = f.read()
     contents = zlib.decompress(contents)
 
-    _type = contents[:4].decode()
+    spc_idx = contents.index(b"\x20")
+    _type = contents[:spc_idx].decode()
     # contents = contents[5:]
     nul_idx = contents.index("\0".encode())
     # print(f"header : {contents[:nul_idx].decode()}")

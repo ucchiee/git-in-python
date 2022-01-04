@@ -28,7 +28,7 @@ def cat_tree(contents: bytes, path_in_repo: str) -> str:
 
 
 def cat_commit(contents: bytes) -> str:
-    raise NotImplementedError
+    return contents.decode(errors="replace")
 
 
 def cat_file(hash_value: str, path_in_repo: str) -> str:
