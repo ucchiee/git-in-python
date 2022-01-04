@@ -4,7 +4,7 @@ import unittest
 
 from commands import cmd_add, cmd_hash_object, cmd_init
 from options import get_parser
-from util import read_index
+from util import read_index, get_path_in_repo
 
 tests_dir = os.path.abspath(os.path.dirname(__file__))
 dirname: str = os.path.join(tests_dir, "test_repo")
@@ -30,6 +30,7 @@ class TestGipHashObject(unittest.TestCase):
         cmd_add(args)
 
         statinfo = os.stat(filename)
+        filename = get_path_in_repo(filename)
         entries = read_index(os.getcwd())
         # self.assertEqual(len(entries), 1)  # need to inspect
         e = entries[0]
@@ -59,6 +60,10 @@ class TestGipHashObject(unittest.TestCase):
     def test_add_text_binary(self):
         os.chdir(dirname)
         self.check_index("a.out")
+
+    def test_add_file_in_dir(self):
+        os.chdir(os.path.join(dirname, "dir"))
+        self.check_index("test.py")
 
 
 if __name__ == "__main__":

@@ -2,21 +2,22 @@ import os
 from argparse import Namespace
 
 from classes import IndexEntry
-from util import hash_object, read_index, write_index
+from util import hash_object, read_index, write_index, get_path_in_repo
 
 
 def cmd_add(args: Namespace) -> None:
     assert len(args.files) > 0
-    index_entries: list[IndexEntry] = read_index(args.files[0])
 
-    # delete entries for updated files
+    paths_in_repo = [get_path_in_repo(path) for path in args.files]
+
+    index_entries: list[IndexEntry] = read_index(args.files[0])
     index_entries = [e for e in index_entries if e.path not in args.files]
 
     # hash each file and add to index
-    for path in args.files:
-        statinfo = os.stat(path)
-        sha1_bytes = bytes.fromhex(hash_object(path))
-        len_path = len(path.encode())
+    for filename, path_to_add in zip(args.files, paths_in_repo):
+        statinfo = os.stat(filename)
+        sha1_bytes = bytes.fromhex(hash_object(filename))
+        len_path = len(path_to_add.encode())
         if len_path > 0xFFF:
             len_path = 0xFFF
         entry = IndexEntry(
@@ -32,7 +33,7 @@ def cmd_add(args: Namespace) -> None:
             statinfo.st_size,
             sha1_bytes,
             len_path,
-            path,
+            path_to_add,
         )
         index_entries.append(entry)
     write_index(index_entries)
