@@ -2,18 +2,12 @@ import os
 import time
 from argparse import Namespace
 
-from util import (
-    get_current_branch,
-    read_head_hash,
-    write_head_hash,
-    write_object,
-    write_tree,
-)
+from util import get_current_branch, read_branch, write_branch, write_object, write_tree
 
 
 def cmd_commit(args: Namespace) -> str:
     branch = get_current_branch(os.getcwd())
-    parent_hash = read_head_hash(os.getcwd())
+    parent_hash = read_branch(os.getcwd(), branch)
     if not branch:
         print(f"now at commit {parent_hash}, please checkout to a branch")
         return ""
@@ -33,6 +27,6 @@ def cmd_commit(args: Namespace) -> str:
     contents += "\n".encode()
     contents += f"{args.message}\n".encode()
     commit_hash = write_object("commit", contents, os.getcwd())
-    write_head_hash(os.getcwd(), commit_hash)
-    print(f"committed to {branch} {commit_hash:7}")
+    write_branch(os.getcwd(), branch, commit_hash)
+    print(f"committed to {branch} {commit_hash}")
     return commit_hash
