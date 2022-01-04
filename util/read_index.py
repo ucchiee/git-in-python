@@ -43,7 +43,7 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
     while len(index_data) > 62:
         # parse each fields
         list_fields = struct.unpack("!LLLLLLLLLL20sH", index_data[:62])
-        index_data = index_data[:62]
+        index_data = index_data[62:]
 
         # path is null terminated
         end_of_path = index_data.index(b"\x00")
