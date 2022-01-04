@@ -1,6 +1,6 @@
 from util.cat_file import cat_file
 from util.detect_dot_git import detect_dot_git
-from util.get_head_hash import get_current_branch, get_head_hash
+from util.heads import get_current_branch, get_head_hash
 from util.get_path_in_repo import get_path_in_repo
 from util.hash_object import hash_object
 from util.objects import read_object, write_object
