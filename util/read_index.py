@@ -28,7 +28,7 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
             print("invalid index")
         return []
 
-    signature, version, num_entries = struct.unpack("!4sLL", index_data)
+    signature, version, num_entries = struct.unpack("!4sLL", index_data[:12])
     if signature != b"DIRC":
         if print_error:
             print("invalid signature, must be DIRC")
