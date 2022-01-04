@@ -23,9 +23,9 @@ def cmd_add(args: Namespace) -> None:
             len_path = 0xFFF
         entry = IndexEntry(
             int(statinfo.st_ctime),
-            statinfo.st_ctime_ns,
+            int(statinfo.st_ctime_ns) & 0xFFFFFFFF,  # can be 0
             int(statinfo.st_mtime),
-            statinfo.st_mtime_ns,
+            int(statinfo.st_mtime_ns) & 0xFFFFFFFF,  # can be 0
             statinfo.st_dev,
             statinfo.st_ino,
             statinfo.st_mode,  # actually this value is wrong, git change file mode when added
