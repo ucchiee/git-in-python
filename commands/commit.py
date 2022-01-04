@@ -31,7 +31,7 @@ def cmd_commit(args: Namespace) -> str:
     contents += f"author {args.author} {timestamp}\n".encode()
     contents += f"committer {args.author} {timestamp}\n".encode()
     contents += "\n".encode()
-    contents += f"{args.message}".encode()
+    contents += f"{args.message}\n".encode()
     commit_hash = write_object("commit", contents, os.getcwd())
     write_head_hash(os.getcwd(), commit_hash)
     print(f"committed to {branch} {commit_hash:7}")
