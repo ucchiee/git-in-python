@@ -53,6 +53,14 @@ class TestGipHashObject(unittest.TestCase):
         os.chdir(dirname)
         self.check_index("test.c")
 
+    def test_add_text_multibyte(self):
+        os.chdir(dirname)
+        self.check_index("japanese.txt")
+
+    def test_add_text_binary(self):
+        os.chdir(dirname)
+        self.check_index("a.out")
+
 
 if __name__ == "__main__":
     unittest.main()
