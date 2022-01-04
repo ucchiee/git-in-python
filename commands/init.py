@@ -12,7 +12,7 @@ def cmd_init(args: Namespace) -> None:
         print("Initialized empty ", end="")
 
     objects_dir = os.path.join(dot_git_dir, "objects")
-    heads_dir = os.path.join(dot_git_dir, "heads")
+    heads_dir = os.path.join(dot_git_dir, "refs", "heads")
     os.makedirs(objects_dir, exist_ok=True)
     os.makedirs(heads_dir, exist_ok=True)
 
