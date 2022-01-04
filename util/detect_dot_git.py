@@ -6,6 +6,8 @@ def detect_dot_git(path: str) -> str:
     if not os.path.exists(path):
         print(f"invalid path : {path}")
         return ""
+    if path.endswith(".git"):
+        return path
 
     # traverse to parent dir
     path = os.path.abspath(path)
