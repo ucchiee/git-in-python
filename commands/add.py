@@ -12,8 +12,6 @@ def cmd_add(args: Namespace) -> None:
     # delete entries for updated files
     index_entries = [e for e in index_entries if e.path not in args.files]
 
-    args.files = [os.path.abspath(path) for path in args.files]
-
     # hash each file and add to index
     for path in args.files:
         statinfo = os.stat(path)

@@ -44,10 +44,9 @@ class TestGipHashObject(unittest.TestCase):
         self.assertEqual(statinfo.st_gid, e.gid)
         self.assertEqual(statinfo.st_size, e.size)
         self.assertEqual(sha1_hash, e.sha1.hex())
-        path = os.path.abspath(filename)
-        len_path = len(path)
+        len_path = len(filename)
         self.assertEqual(len_path, e.flags)
-        self.assertEqual(path, e.path)
+        self.assertEqual(filename, e.path)
 
     def test_add_text(self):
         os.chdir(dirname)
