@@ -44,7 +44,7 @@ def cat_file(hash_value: str, path_in_repo: str) -> str:
     elif obj_type == "commit":
         result = cat_commit(contents)
     else:
-        assert False, "Invalid object type"
+        assert False, "Invalid or not supported object type"
     return result
 
 
