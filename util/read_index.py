@@ -47,7 +47,10 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
 
         # path is null terminated
         end_of_path = index_data.index(b"\x00")
-        path = index_data[:end_of_path].decode()
+        try:
+            path = index_data[:end_of_path].decode()
+        except UnicodeDecodeError:
+            print(index_data[:end_of_path])
 
         entry = IndexEntry(*(list_fields + (path,)))
         list_entries.append(entry)
