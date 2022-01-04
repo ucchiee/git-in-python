@@ -19,7 +19,7 @@ def _write_head(path_in_repo: str, contents: str) -> None:
         f.write(contents)
 
 
-def _read_branch(path_in_repo: str, branch: str) -> str:
+def read_branch(path_in_repo: str, branch: str) -> str:
     dot_git_dir = detect_dot_git(path_in_repo)
     ref_path = os.path.join(dot_git_dir, "refs", "heads", branch)
     if not os.path.exists(ref_path):
@@ -29,7 +29,7 @@ def _read_branch(path_in_repo: str, branch: str) -> str:
     return branch_content
 
 
-def _write_branch(path_in_repo: str, branch: str, contents: str) -> None:
+def write_branch(path_in_repo: str, branch: str, contents: str) -> None:
     dot_git_dir = detect_dot_git(path_in_repo)
     ref_path = os.path.join(dot_git_dir, "refs", "heads", branch)
     with open(ref_path, mode="w") as f:
@@ -51,7 +51,7 @@ def read_head_hash(path_in_repo: str) -> str:
     dot_git_dir = detect_dot_git(path_in_repo)
     branch = get_current_branch(path_in_repo)
     if branch:
-        return _read_branch(dot_git_dir, branch)
+        return read_branch(dot_git_dir, branch)
     else:
         return _read_head(dot_git_dir)
 
@@ -60,6 +60,6 @@ def write_head_hash(path_in_repo: str, hash: str) -> None:
     dot_git_dir = detect_dot_git(path_in_repo)
     branch = get_current_branch(dot_git_dir)
     if branch:
-        _write_branch(dot_git_dir, branch, hash)
+        write_branch(dot_git_dir, branch, hash)
     else:
         _write_head(dot_git_dir, hash)
