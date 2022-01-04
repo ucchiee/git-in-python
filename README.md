@@ -18,4 +18,4 @@ Commands to implement:
 - [x] add
 - [x] ls-files
 - [x] write-tree
-- [ ] commit
+- [x] commit
