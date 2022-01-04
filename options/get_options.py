@@ -16,6 +16,8 @@ def get_parser() -> argparse.ArgumentParser:
     # cat-file
     cat_parser = subparsers.add_parser("cat-file")
     cat_parser.add_argument("hash_value", type=str)
+    # ls-files
+    ls_parser = subparsers.add_parser("ls-files")  # noqa
     # add
     add_parser = subparsers.add_parser("add")
     add_parser.add_argument("files", type=str, nargs="+")
