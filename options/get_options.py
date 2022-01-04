@@ -21,6 +21,8 @@ def get_parser() -> argparse.ArgumentParser:
     # add
     add_parser = subparsers.add_parser("add")
     add_parser.add_argument("files", type=str, nargs="+")
+    # write-tree
+    write_tree_parser = subparsers.add_parser("write-tree")  # noqa
     # rebase
     rebase_parser = subparsers.add_parser("rebase")
     rebase_parser.add_argument("-i", "--interactive", action="store_true")

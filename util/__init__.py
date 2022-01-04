@@ -5,6 +5,7 @@ from util.hash_object import hash_object
 from util.read_index import read_index
 from util.write_index import write_index
 from util.write_object import write_object
+from util.write_tree import write_tree
 
 __all__ = [
     "cat_file",
@@ -14,4 +15,5 @@ __all__ = [
     "read_index",
     "write_index",
     "write_object",
+    "write_tree",
 ]

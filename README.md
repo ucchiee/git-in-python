@@ -16,4 +16,6 @@ Commands to implement:
 - [x] hash-object
 - [x] cat-file
 - [x] add
+- [x] ls-files
+- [x] write-tree
 - [ ] commit

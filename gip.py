@@ -1,6 +1,6 @@
 from argparse import Namespace
 
-from commands import cmd_add, cmd_cat_file, cmd_hash_object, cmd_init, cmd_ls_files
+from commands import cmd_add, cmd_cat_file, cmd_hash_object, cmd_init, cmd_ls_files, cmd_write_tree
 from options import get_options
 
 
@@ -15,6 +15,8 @@ def main(args: Namespace) -> None:
         cmd_ls_files(args)
     elif args.command == "add":
         cmd_add(args)
+    elif args.command == "write-tree":
+        cmd_write_tree(args)
     elif args.command == "commit":
         raise NotImplementedError
 
