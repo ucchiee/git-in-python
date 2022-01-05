@@ -1,4 +1,5 @@
 from util.objects import read_object
+from util.tree import parse_tree
 
 
 def cat_blob(contents: bytes) -> str:
@@ -8,21 +9,15 @@ def cat_blob(contents: bytes) -> str:
 def cat_tree(contents: bytes, path_in_repo: str) -> str:
 
     # parse each entry
+    entries = parse_tree(contents)
     result: str = ""
-    while len(contents) > 20:
-        nul_idx = contents.index(b"\x00")
-        mode, path = contents[:nul_idx].decode().split(" ")
-        contents = contents[nul_idx + 1 :]
-        sha1_hash = contents[:20].hex()
-        contents = contents[20:]
-
+    for mode, path, sha1_hash in entries:
         # detect obj type
         try:
             _type, _ = read_object(sha1_hash, path_in_repo)
         except ValueError:
             print(f"{sha1_hash}")
             _type = ""
-
         result = f"{mode} {_type} {sha1_hash}  {path}\n"
     return result
 
