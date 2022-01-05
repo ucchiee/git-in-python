@@ -8,6 +8,13 @@ PoC of Git in Python
 python -m unittest discover tests
 ```
 
+## measure test coverage
+
+```
+coverage run -m unittest discover tests
+coverage report -m
+```
+
 ## todo
 
 Commands to implement:
