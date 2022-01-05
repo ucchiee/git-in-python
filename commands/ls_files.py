@@ -7,7 +7,7 @@ from util import read_index
 def cmd_ls_files(args: Namespace) -> str:
     result: str = ""
     for entry in read_index(os.getcwd()):
-        line = f"{entry.sha1.hex()} {entry.path}"
+        line = f"{entry.sha1.hex()} {entry.path}\n"
         result += line
-        print(line)
+        print(line, end="")
     return result
