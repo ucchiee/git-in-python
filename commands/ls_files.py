@@ -4,6 +4,10 @@ from argparse import Namespace
 from util import read_index
 
 
-def cmd_ls_files(args: Namespace):
+def cmd_ls_files(args: Namespace) -> str:
+    result: str = ""
     for entry in read_index(os.getcwd()):
-        print(entry.sha1.hex(), entry.path)
+        line = f"{entry.sha1.hex()} {entry.path}\n"
+        result += line
+        print(line)
+    return result

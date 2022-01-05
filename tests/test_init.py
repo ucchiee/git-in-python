@@ -17,7 +17,7 @@ class TestGipInit(unittest.TestCase):
 
     def util_test_git_dir(self, dot_git_dir: str) -> None:
         objects_dir: str = os.path.join(dot_git_dir, "objects")
-        heads_dir: str = os.path.join(dot_git_dir, "heads")
+        heads_dir: str = os.path.join(dot_git_dir, "refs", "heads")
         head_path: str = os.path.join(dot_git_dir, "HEAD")
         self.assertTrue(os.path.exists(dot_git_dir))
         self.assertTrue(os.path.exists(objects_dir))

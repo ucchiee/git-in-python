@@ -10,7 +10,7 @@ tests_dir = os.path.abspath(os.path.dirname(__file__))
 dirname: str = os.path.join(tests_dir, "test_repo")
 
 
-class TestGipHashObject(unittest.TestCase):
+class TestGipAdd(unittest.TestCase):
     def setUp(self) -> None:
         # make git repo
         os.makedirs(dirname, exist_ok=True)
@@ -64,6 +64,12 @@ class TestGipHashObject(unittest.TestCase):
     def test_add_file_in_dir(self):
         os.chdir(os.path.join(dirname, "dir"))
         self.check_index("test.py")
+
+    def test_add_many_times(self):
+        os.chdir(dirname)
+        self.check_index("test.c")
+        self.check_index("japanese.txt")
+        # self.check_index("a.out")
 
 
 if __name__ == "__main__":

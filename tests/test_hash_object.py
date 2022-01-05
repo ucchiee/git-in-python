@@ -41,6 +41,10 @@ class TestGipHashObject(unittest.TestCase):
         os.chdir(dirname)
         self.check_hash("a.out")
 
+    def test_hash_object_in_dir(self):
+        os.chdir(os.path.join(dirname, "dir"))
+        self.check_hash("test.py")
+
 
 if __name__ == "__main__":
     unittest.main()
