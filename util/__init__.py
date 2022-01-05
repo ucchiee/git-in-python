@@ -9,6 +9,7 @@ from util.heads import (
     write_head_hash,
 )
 from util.objects import hash_object, read_object, write_object
+from util.parse_commit import parse_commit
 from util.read_index import read_index
 from util.tree import parse_tree, read_tree, write_tree
 from util.write_index import write_index
@@ -19,6 +20,7 @@ __all__ = [
     "get_current_branch",
     "get_path_in_repo",
     "hash_object",
+    "parse_commit",
     "parse_tree",
     "read_branch",
     "read_head_hash",
