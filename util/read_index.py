@@ -56,10 +56,8 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
         list_entries.append(entry)
 
         # delete null bytes
-        for i, data in enumerate(index_data):
-            if data != b"0x00":
-                break
-        index_data = index_data[i:]
+        len_path = ((len(path) + 8) // 8) * 8
+        index_data = index_data[len_path:]
 
     return list_entries
 
