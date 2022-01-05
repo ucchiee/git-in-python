@@ -49,3 +49,11 @@ def read_object(hash_value: str, path_in_repo: str) -> tuple[str, bytes]:
     nul_idx = contents.index("\0".encode())
     # print(f"header : {contents[:nul_idx].decode()}")
     return _type, contents[nul_idx + 1 :]
+
+
+def hash_object(path: str) -> str:
+    with open(path, mode="rb") as f:
+        content: bytes = f.read()
+
+    sha1_hash = write_object("blob", content, path)
+    return sha1_hash
