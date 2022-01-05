@@ -11,8 +11,8 @@ from util.heads import (
 )
 from util.objects import read_object, write_object
 from util.read_index import read_index
+from util.tree import parse_tree, read_tree, write_tree
 from util.write_index import write_index
-from util.write_tree import write_tree
 
 __all__ = [
     "cat_file",
@@ -20,10 +20,12 @@ __all__ = [
     "get_current_branch",
     "get_path_in_repo",
     "hash_object",
+    "parse_tree",
     "read_branch",
     "read_head_hash",
     "read_index",
     "read_object",
+    "read_tree",
     "write_branch",
     "write_head_hash",
     "write_index",
