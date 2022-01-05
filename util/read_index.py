@@ -29,25 +29,22 @@ def read_index(path_in_repo: str, print_error: bool = False) -> list[IndexEntry]
 
     index_data = index_data[12:-20]
     list_entries = []
-    while len(index_data) > 62:
-        # parse each fields
-        list_fields = struct.unpack("!LLLLLLLLLL20sH", index_data[:62])
-        index_data = index_data[62:]
+    i = 0
+    while i + 62 < len(index_data):
+        # parse first 62 bytes
+        fields_end = i + 62
+        fields = struct.unpack("!LLLLLLLLLL20sH", index_data[i:fields_end])
 
-        # path is null terminated
-        end_of_path = index_data.index(b"\x00")
-        try:
-            path = index_data[:end_of_path].decode()
-        except UnicodeDecodeError:
-            print(index_data[:end_of_path])
+        # parse path
+        path_end = index_data.index(b"\x00", fields_end)
+        path = index_data[fields_end:path_end]
 
-        entry = IndexEntry(*(list_fields + (path,)))
+        entry = IndexEntry(*(fields + (path.decode(),)))
         list_entries.append(entry)
+        entry_len = ((62 + len(path) + 8) // 8) * 8
+        i += entry_len
 
-        # delete null bytes
-        len_path = ((len(path) + 8) // 8) * 8
-        index_data = index_data[len_path:]
-
+    assert len(list_entries) == num_entries
     return list_entries
 
 
